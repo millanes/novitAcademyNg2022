@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'novitAcademyNg2022';
+  title = 'Este es un Title';
 }
