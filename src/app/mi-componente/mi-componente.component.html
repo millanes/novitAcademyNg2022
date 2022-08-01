@@ -1,3 +1,26 @@
-<h2>Formulario</h2>
-<input type="text" />
-<button>Click me!</button>
+<p [ngStyle]="{'display': showDiv ? 'none' : 'bloc'}">Formulario</p>
+<div [ngClass]="color === 'red' ? 'container-red' : 'container-yellow'"></div>
+<input matInput type="text" [(ngModel)]="color" />
+<button mat-raised-button color="primary" (click)="onClick()" >Click me!</button>
+
+<div *ngIf="showDiv">
+    <p>Mi div ocultable</p>
+</div>
+
+<container [ngSwitch]="color">
+    <div *ngSwitchCase="'red'">
+        <input type="text"><input type="text"><input type="text">
+    </div>
+    <p *ngSwitchCase="'yellow'">Eligió el color amarillo</p>
+    <p *ngSwitchDefault>No sé</p>
+</container>
+
+<ul *ngFor="let movie of movies">
+    <li *ngIf="movie.name !== 'Star wars'">Nombre de la peli: {{movie.name}} | Vistas: {{movie.views}}</li>
+</ul>
+
+<div *ngIf="movies.length > 0">
+    <h2>Movie of the year 2022</h2>
+    <p>{{movieOfTheYear.name}}</p>
+</div>
+

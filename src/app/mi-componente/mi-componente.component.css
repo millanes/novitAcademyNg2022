@@ -1,0 +1,13 @@
+.container-red {
+    background-color: red;
+    width: 200px;
+    height: 15px;
+    margin: 10px;
+}
+.container-yellow {
+    background-color: yellow;
+    width: 150px;
+    height: 15px;
+    margin: 10px;
+}
+
