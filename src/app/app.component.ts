@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Este es un Title';
+  title = 'Clase 2 - Ciclos de vida de componentes y Directivas de Angular';
 }

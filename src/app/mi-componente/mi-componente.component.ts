@@ -30,7 +30,7 @@ export class MiComponenteComponent implements OnInit {
 
   onClick() {
     console.log(this.name);
-    this.showDiv = false;
+    this.showDiv = !this.showDiv;
   }
 
 }

@@ -1,26 +1,43 @@
-<p [ngStyle]="{'display': showDiv ? 'none' : 'bloc'}">Formulario</p>
-<div [ngClass]="color === 'red' ? 'container-red' : 'container-yellow'"></div>
-<input matInput type="text" [(ngModel)]="color" />
-<button mat-raised-button color="primary" (click)="onClick()" >Click me!</button>
-
-<div *ngIf="showDiv">
-    <p>Mi div ocultable</p>
-</div>
-
-<container [ngSwitch]="color">
-    <div *ngSwitchCase="'red'">
-        <input type="text"><input type="text"><input type="text">
+<div class="container">    
+    <p [ngStyle]="{'display': showDiv ? 'block' : 'none'}">Ejemplo ngStyle con showDiv: {{showDiv}}</p>
+    <button mat-raised-button color="primary" (click)="onClick()">Toggle showDiv!</button>
+    
+    <div *ngIf="showDiv">
+        <p>Mi div ocultable</p>
     </div>
-    <p *ngSwitchCase="'yellow'">Eligió el color amarillo</p>
-    <p *ngSwitchDefault>No sé</p>
-</container>
 
-<ul *ngFor="let movie of movies">
-    <li *ngIf="movie.name !== 'Star wars'">Nombre de la peli: {{movie.name}} | Vistas: {{movie.views}}</li>
-</ul>
+    <!-- Ejemplo ngStyle y ngClass -->
+    <mat-card [ngStyle]="{'background-color': color}" [ngClass]="color === 'red' ? 'big' : 'regular'">
+        Card que toma el valor segun variable color. Color = {{color || 'not-valid'}}
+    </mat-card>
+    
+    <mat-form-field class="example-form" appearance="fill">
+        <mat-label>El valor del input modifica la variable color</mat-label>
+        <input matInput placeholder="Ej. red, yellow, green, blue..." type="text" [(ngModel)]="color"/>
+    </mat-form-field>
+    <br/>
+    
+    <container [ngSwitch]="color">
+        <div *ngSwitchCase="'red'">
+            <p>ngSwitch color === 'red'</p>
+        </div>
+        <p *ngSwitchCase="'yellow'">ngSwitch color === 'yellow'</p>
+        <p *ngSwitchDefault>ngSwitch other color than red or yellow</p>
+    </container>
+    <mat-divider></mat-divider>
+    <div class="container">
+        <h3>Movie time!</h3>
+        <div *ngIf="movies.length > 0">
+            <h2>Movie of the year 2022 : {{movieOfTheYear.name}}</h2>
+        </div>
 
-<div *ngIf="movies.length > 0">
-    <h2>Movie of the year 2022</h2>
-    <p>{{movieOfTheYear.name}}</p>
+        <mat-label>Peliculas populares (menos Star Wars diuj [oculto por *ngIf dinamicamente])</mat-label>
+        <ul *ngFor="let movie of movies">
+            <li *ngIf="movie.name !== 'Star wars'">
+                <mat-icon size="10" fontIcon="movie"></mat-icon>{{movie.name}} <br />
+                <mat-icon fontIcon="visibility"></mat-icon>{{movie.views}}
+            </li>
+        </ul>
+    </div>
 </div>
 
