@@ -1,4 +1,4 @@
 <div class="container">
   <h3>{{title}}</h3>
-  <app-mi-componente></app-mi-componente>
+  <app-mi-componente [user]="loggedUser" (userEvent)="modifyUser($event)"></app-mi-componente>
 </div>

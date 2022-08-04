@@ -1,43 +1,60 @@
 <div class="container">    
-    <p [ngStyle]="{'display': showDiv ? 'block' : 'none'}">Ejemplo ngStyle con showDiv: {{showDiv}}</p>
-    <button mat-raised-button color="primary" (click)="onClick()">Toggle showDiv!</button>
-    
-    <div *ngIf="showDiv">
-        <p>Mi div ocultable</p>
-    </div>
+    <h2>Formularios</h2>
+    <form [formGroup]="form" (ngSubmit)="saveForm(form)">
+        <mat-form-field appearance="standard">
+            <mat-label>Name</mat-label>
+            <input matInput type="text" placeholder="Type your name..." formControlName="name" #nameInput/>
+            <mat-hint>{{nameInput.value.length}}/{{minLengthForName}}</mat-hint>
+            <mat-error *ngIf="form.controls['name'].errors?.['required']">Name is required</mat-error>
+            <mat-error *ngIf="form.controls['name'].errors?.['minlength']">Please enter more than {{minLengthForName}} characters</mat-error>
+        </mat-form-field>
 
-    <!-- Ejemplo ngStyle y ngClass -->
-    <mat-card [ngStyle]="{'background-color': color}" [ngClass]="color === 'red' ? 'big' : 'regular'">
-        Card que toma el valor segun variable color. Color = {{color || 'not-valid'}}
-    </mat-card>
-    
-    <mat-form-field class="example-form" appearance="fill">
-        <mat-label>El valor del input modifica la variable color</mat-label>
-        <input matInput placeholder="Ej. red, yellow, green, blue..." type="text" [(ngModel)]="color"/>
-    </mat-form-field>
-    <br/>
-    
-    <container [ngSwitch]="color">
-        <div *ngSwitchCase="'red'">
-            <p>ngSwitch color === 'red'</p>
-        </div>
-        <p *ngSwitchCase="'yellow'">ngSwitch color === 'yellow'</p>
-        <p *ngSwitchDefault>ngSwitch other color than red or yellow</p>
-    </container>
-    <mat-divider></mat-divider>
-    <div class="container">
-        <h3>Movie time!</h3>
-        <div *ngIf="movies.length > 0">
-            <h2>Movie of the year 2022 : {{movieOfTheYear.name}}</h2>
-        </div>
+        <mat-form-field appearance="standard">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email" placeholder="Enter your Email"/>
+            <mat-icon matSuffix>mail_outline</mat-icon>
+            <mat-error *ngIf="form.controls['email'].errors?.['required']">Email is required</mat-error>
+            <mat-error *ngIf="form.controls['email'].errors?.['pattern']">Please enter a valid email</mat-error>
+        </mat-form-field>
 
-        <mat-label>Peliculas populares (menos Star Wars diuj [oculto por *ngIf dinamicamente])</mat-label>
-        <ul *ngFor="let movie of movies">
-            <li *ngIf="movie.name !== 'Star wars'">
-                <mat-icon size="10" fontIcon="movie"></mat-icon>{{movie.name}} <br />
-                <mat-icon fontIcon="visibility"></mat-icon>{{movie.views}}
-            </li>
-        </ul>
-    </div>
+        <mat-form-field>
+            <mat-label>Address</mat-label>
+            <textarea matInput placeholder="Type your full address" formControlName="address"></textarea>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Country</mat-label>
+            <mat-select matNativeControl name="country" formControlName="country">
+                <mat-option value="AR">Argentina</mat-option>
+                <mat-option value="BR">Brasil</mat-option>
+                <mat-option value="PY">Paraguay</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Select your date of birth</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="dob">
+            <mat-error *ngIf="form.controls['dob'].errors?.['required']">The DoB is required</mat-error>
+            <mat-datepicker-toggle matSuffix [for]="picker">
+                <mat-icon matDatepickerToggleIcon>calendar_today</mat-icon>
+            </mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <div align="right">
+            <button mat-raised-button color="primary" type="sumbit" [disabled]="!form.valid">Submit</button>
+        </div>
+        <div>{{ form.value | json }}</div>
+    </form>
+
+    <mat-divider style="margin: 20px;"></mat-divider>
+
+    <h2>@Input decorator</h2>
+    <img style="max-width: 300px; margin: 10px;" src="https://docs.angular.lat/generated/images/guide/inputs-outputs/input.svg" />
+    <img style="max-width: 300px; margin: 10px;" src="https://docs.angular.lat/generated/images/guide/inputs-outputs/input-diagram-target-source.svg" />
+    
+    <mat-divider style="margin: 20px;"></mat-divider>
+    
+    <h2>@Ouput decorator</h2>
+    <img style="max-width: 300px;" src="https://docs.angular.lat/generated/images/guide/inputs-outputs/output.svg" />
 </div>
-

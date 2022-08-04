@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Clase 2 - Ciclos de vida de componentes y Directivas de Angular';
+  title = 'Clase 3 - Formularios, @Inputs y @Outputs';
+  loggedUser = { name: 'Nicolás Micó', email: 'nicolas@mico.com' };
+
+  modifyUser(user: any) {
+    console.log('Llamaron al evento con la info', user);
+    this.loggedUser = user;
+  }
 }

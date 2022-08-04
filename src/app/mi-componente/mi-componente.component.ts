@@ -1,9 +1,5 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-
-interface Movie {
-  name: string,
-  views: number
-}
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-mi-componente',
@@ -11,26 +7,26 @@ interface Movie {
   styleUrls: ['./mi-componente.component.css']
 })
 export class MiComponenteComponent implements OnInit {
-  fontSize: string = '20px'
-  color: string = 'red'
-  name: string = 'Carlos'
-  showDiv: boolean = true
-  movies: Movie[] = [
-    { name: 'Harry Potter', views: 300 },
-    { name: 'Lord of the rings', views: 500 },
-    { name: 'Star wars', views: 1500 }
-  ]
-  movieOfTheYear!: Movie;
+  @Input() user?: any; 
+  @Output() userEvent = new EventEmitter<any>();
 
-  constructor() { }
+  form!: FormGroup
+  minLengthForName: number = 10
 
-  ngOnInit(): void {
-    this.movieOfTheYear = { ...this.movies[0] }
+  constructor(private readonly fb: FormBuilder) {}
+
+  ngOnInit() {
+    this.form = this.fb.group({
+      name: [this.user.name, [Validators.required, Validators.minLength(this.minLengthForName)]],
+      email: [this.user.email, [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
+      dob: [null, Validators.required],
+      address: [null],
+      country: [null]
+    })
   }
 
-  onClick() {
-    console.log(this.name);
-    this.showDiv = !this.showDiv;
+  saveForm(form: FormGroup): void {
+    alert('FORM SENT :- \n\n' + JSON.stringify(form.value, null, 4));
+    this.userEvent.emit({ name: this.form.get('name')?.value, email: this.form.get('email')?.value })
   }
-
 }
