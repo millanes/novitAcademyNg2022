@@ -39,7 +39,7 @@ const rutas: Routes = [{
   declarations: [],
   imports: [
     CommonModule,
-    RouterModule.forRoot(rutas)
+    RouterModule.forRoot(rutas, { useHash: true, enableTracing: true })
   ],
   exports: [RouterModule]
 })
