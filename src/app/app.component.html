@@ -1,4 +1,5 @@
 <div class="container">
   <h3>{{title}}</h3>
-  <app-mi-componente [user]="loggedUser" (userEvent)="modifyUser($event)"></app-mi-componente>
+  <app-mi-componente *ngIf="!token" (userEvent)="modifyUser($event)"></app-mi-componente>
+  <app-my-pets *ngIf="token" ></app-my-pets>
 </div>

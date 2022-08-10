@@ -1,5 +1,5 @@
 <div class="container">    
-    <h2>Formularios</h2>
+    <h2>Login</h2>
     <form [formGroup]="form" (ngSubmit)="saveForm(form)">
         <mat-form-field appearance="standard">
             <mat-label>Name</mat-label>
@@ -10,51 +10,15 @@
         </mat-form-field>
 
         <mat-form-field appearance="standard">
-            <mat-label>Email</mat-label>
-            <input matInput type="email" formControlName="email" placeholder="Enter your Email"/>
+            <mat-label>Password</mat-label>
+            <input matInput type="password" formControlName="password" placeholder="Enter your Password"/>
             <mat-icon matSuffix>mail_outline</mat-icon>
-            <mat-error *ngIf="form.controls['email'].errors?.['required']">Email is required</mat-error>
-            <mat-error *ngIf="form.controls['email'].errors?.['pattern']">Please enter a valid email</mat-error>
-        </mat-form-field>
-
-        <mat-form-field>
-            <mat-label>Address</mat-label>
-            <textarea matInput placeholder="Type your full address" formControlName="address"></textarea>
-        </mat-form-field>
-
-        <mat-form-field>
-            <mat-label>Country</mat-label>
-            <mat-select matNativeControl name="country" formControlName="country">
-                <mat-option value="AR">Argentina</mat-option>
-                <mat-option value="BR">Brasil</mat-option>
-                <mat-option value="PY">Paraguay</mat-option>
-            </mat-select>
-        </mat-form-field>
-
-        <mat-form-field appearance="fill">
-            <mat-label>Select your date of birth</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName="dob">
-            <mat-error *ngIf="form.controls['dob'].errors?.['required']">The DoB is required</mat-error>
-            <mat-datepicker-toggle matSuffix [for]="picker">
-                <mat-icon matDatepickerToggleIcon>calendar_today</mat-icon>
-            </mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="form.controls['password'].errors?.['required']">Password is required</mat-error>
+            <mat-error *ngIf="form.controls['password'].errors?.['pattern']">Please enter a valid password</mat-error>
         </mat-form-field>
 
         <div align="right">
             <button mat-raised-button color="primary" type="sumbit" [disabled]="!form.valid">Submit</button>
         </div>
-        <div>{{ form.value | json }}</div>
     </form>
-
-    <mat-divider style="margin: 20px;"></mat-divider>
-
-    <h2>@Input decorator</h2>
-    <img style="max-width: 300px; margin: 10px;" src="https://docs.angular.lat/generated/images/guide/inputs-outputs/input.svg" />
-    <img style="max-width: 300px; margin: 10px;" src="https://docs.angular.lat/generated/images/guide/inputs-outputs/input-diagram-target-source.svg" />
-    
-    <mat-divider style="margin: 20px;"></mat-divider>
-    
-    <h2>@Ouput decorator</h2>
-    <img style="max-width: 300px;" src="https://docs.angular.lat/generated/images/guide/inputs-outputs/output.svg" />
 </div>

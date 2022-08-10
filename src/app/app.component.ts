@@ -6,11 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Clase 3 - Formularios, @Inputs y @Outputs';
-  loggedUser = { name: 'Nicolás Micó', email: 'nicolas@mico.com' };
+  token = undefined
+  title = 'Clase 4 - Servicios';
 
-  modifyUser(user: any) {
-    console.log('Llamaron al evento con la info', user);
-    this.loggedUser = user;
+  modifyUser(token: any) {
+    console.log('Llamaron al evento con la info', token);
+    this.token = token;
   }
 }

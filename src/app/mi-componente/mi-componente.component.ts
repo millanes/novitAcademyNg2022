@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LoginService } from '../login.service';
+import { StorageService } from '../storage.service';
 
 @Component({
   selector: 'app-mi-componente',
@@ -7,26 +9,29 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./mi-componente.component.css']
 })
 export class MiComponenteComponent implements OnInit {
-  @Input() user?: any; 
+
   @Output() userEvent = new EventEmitter<any>();
-
   form!: FormGroup
-  minLengthForName: number = 10
+  minLengthForName: number = 3
 
-  constructor(private readonly fb: FormBuilder) {}
+  constructor(private readonly fb: FormBuilder, 
+    private loginService: LoginService,
+    private storage: StorageService) {}
 
   ngOnInit() {
     this.form = this.fb.group({
-      name: [this.user.name, [Validators.required, Validators.minLength(this.minLengthForName)]],
-      email: [this.user.email, [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
-      dob: [null, Validators.required],
-      address: [null],
-      country: [null]
+      name: ['', [Validators.required, Validators.minLength(this.minLengthForName)]],
+      password: ['', [Validators.required, Validators.pattern("^[a-z0-9]+")]],
     })
   }
 
   saveForm(form: FormGroup): void {
-    alert('FORM SENT :- \n\n' + JSON.stringify(form.value, null, 4));
-    this.userEvent.emit({ name: this.form.get('name')?.value, email: this.form.get('email')?.value })
+    //alert('FORM SENT :- \n\n' + JSON.stringify(form.value, null, 4));
+    this.loginService.login({nombreUsuario:this.form.get('name')?.value, contraseña: this.form.get('password')?.value }).subscribe(response => 
+      {
+        this.storage.setToken(response)
+        this.userEvent.emit(response)
+      }
+      )
   }
 }
