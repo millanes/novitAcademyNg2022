@@ -3,10 +3,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { MiComponenteComponent } from './mi-componente/mi-componente.component';
+import { MiComponenteComponent } from './components/mi-componente/mi-componente.component';
 import { MaterialModule } from './material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MyPetsComponent } from './my-pets/my-pets.component';
+import { MyPetsComponent } from './components/my-pets/my-pets.component';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({

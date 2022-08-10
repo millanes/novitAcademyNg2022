@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { StorageService } from './storage.service';
 
@@ -11,12 +12,12 @@ export class CatService {
     private storage: StorageService
     ) { }
 
-  getCats(){
+  getCats():Observable<any[]>{
     const options = 
     {
       headers: new HttpHeaders().set('token', this.storage.getToken())
     }
-    return this.http.get(this.baseURL + "Obtener", options);
+    return this.http.get<any[]>(this.baseURL + "Obtener", options);
   }
 
   giveAway(nombre:string){
@@ -27,8 +28,18 @@ export class CatService {
   updateCat(nombreNuevo: string,nombreActual: string){
     const options = 
     {
-      headers: new HttpHeaders().set('token', this.storage.getToken())
+      headers: new HttpHeaders().set('token', this.storage.getToken()).set('Content-Type', 'text/json'),
+      
     }
-    return this.http.put(this.baseURL + "Renombrar/" + nombreActual,  nombreNuevo, options);
+    return this.http.put(this.baseURL + "Renombrar/" + nombreActual, JSON.stringify(nombreNuevo), options);
+  }
+
+  adoptCat(gato: any){
+    const options = 
+    {
+      headers: new HttpHeaders().set('token', this.storage.getToken()),
+      
+    }
+    return this.http.post(this.baseURL + "Adoptar/", gato, options);
   }
 } 

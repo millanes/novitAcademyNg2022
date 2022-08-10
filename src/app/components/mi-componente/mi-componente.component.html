@@ -12,7 +12,6 @@
         <mat-form-field appearance="standard">
             <mat-label>Password</mat-label>
             <input matInput type="password" formControlName="password" placeholder="Enter your Password"/>
-            <mat-icon matSuffix>mail_outline</mat-icon>
             <mat-error *ngIf="form.controls['password'].errors?.['required']">Password is required</mat-error>
             <mat-error *ngIf="form.controls['password'].errors?.['pattern']">Please enter a valid password</mat-error>
         </mat-form-field>

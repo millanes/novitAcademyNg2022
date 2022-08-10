@@ -1,0 +1,68 @@
+<table>
+    <thead>
+        <th>
+            Nombre
+        </th>
+        <th>
+            Edad
+        </th>
+        <th>
+            Regalar
+        </th>
+        <th>
+            Editar
+        </th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let cat of catList">
+            <td>{{cat.nombre}}</td>
+            <td>{{cat.edad}}</td>
+            <td>
+                <button mat-mini-fab color="warn" (click)="giveAway(cat.idGato, cat.nombre)">
+                    <mat-icon>redeem</mat-icon>
+                </button>
+            </td>
+            <td>
+                <button mat-mini-fab color="secondary" (click)="edit(cat.idGato)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<br />
+    <mat-divider></mat-divider>
+    <form *ngIf="!isEditing" [formGroup]="formValuesAdd" (ngSubmit)="adoptCat()">
+        <h2>Adoptar un gato</h2>
+        <mat-form-field appearance="fill">
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="nombre" placeholder="Nombre" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Raza</mat-label>
+            <input matInput formControlName="raza" placeholder="Raza">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Nacimiento</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="nacimiento">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <button mat-button type="submit">
+            Adoptar
+        </button>
+    </form>
+    <form *ngIf="isEditing" [formGroup]="formValuesEdit" (ngSubmit)="renameCat()">
+        <h2>Renombrar a {{nombreActual}}</h2>
+        <mat-form-field appearance="fill">
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="nombre" placeholder="Nombre" required>
+        </mat-form-field>
+
+        <button mat-button type="submit">Actualizar</button>
+        <button color="warn" mat-button (click)="cancelEdit()">Cancelar</button>
+    </form>
