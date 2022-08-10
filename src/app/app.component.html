@@ -1,5 +1,12 @@
 <div>
   {{title}}
-  <app-mi-componente></app-mi-componente>
-  <app-tu-componente></app-tu-componente>
+  <ul>
+    <li><a routerLink="/Home" routerLinkActive="active">Home</a></li>
+    <li><a routerLink="/About" routerLinkActive="active">About</a></li>
+    <li><a routerLink="/Profile" routerLinkActive="active">Profile</a></li>
+    <li *ngIf="!isLogged"><button (click)="login()">Login</button></li>
+    <li *ngIf="isLogged"><button (click)="logout()">Logout</button></li>
+  </ul>
 </div>
+
+<router-outlet></router-outlet>
